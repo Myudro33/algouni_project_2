@@ -2,19 +2,23 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import bcrypt from "bcrypt";
 async function main() {
-  const payment_status = await prisma.payment_status.createMany({
+  const payment_status = await prisma.order_status.createMany({
     data: [
       {
         id: 1,
-        name: "paid",
+        name: "received",
       },
       {
         id: 2,
-        name: "not paid",
+        name: "In production",
       },
       {
         id: 3,
-        name: "pending",
+        name: "sent",
+      },
+      {
+        id: 4,
+        name: "finished",
       },
     ],
   });
@@ -24,7 +28,7 @@ async function main() {
         id: 1,
         type: "chocolate",
         address: "address 1",
-        payment_status_id: 1,
+        order_status_id: 1,
         name: "nika",
         mobile: "0912345678",
         price: 0.5,
@@ -36,7 +40,7 @@ async function main() {
         id: 2,
         type: "vanilla",
         address: "address 2",
-        payment_status_id: 2,
+        order_status_id: 2,
         name: "nika",
         mobile: "0912345678",
         price: 2.5,
@@ -48,13 +52,25 @@ async function main() {
         id: 3,
         type: "strawberry",
         address: "address 3",
-        payment_status_id: 3,
+        order_status_id: 3,
         name: "nika",
         mobile: "0912345678",
         price: 1.5,
         quantity: 30,
         sum: 1.5 * 30,
         note: "note 3",
+      },
+      {
+        id: 4,
+        type: "strawberry",
+        address: "address 3",
+        order_status_id: 4,
+        name: "luka",
+        mobile: "0912345678",
+        price: 3,
+        quantity: 40,
+        sum: 3 * 40,
+        note: "note 4",
       },
     ],
   });

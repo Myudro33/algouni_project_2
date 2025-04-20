@@ -5,12 +5,12 @@ export const getOrders = async (req, res) => {
   try {
     const orders = await prisma.orders.findMany({
       include: {
-        payment_status: true,
+        order_status: true,
       },
     });
     res.status(200).json({ message: "orders fetched", data: orders });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching orders" });
+    res.status(500).json({ message: error.message });
   }
 };
 export const getOrderById = async (req, res) => {
@@ -19,7 +19,7 @@ export const getOrderById = async (req, res) => {
     const order = await prisma.orders.findUnique({
       where: { id: parseInt(id) },
       include: {
-        payment_status: true,
+        order_status: true,
       },
     });
     if (!order) {

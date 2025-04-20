@@ -8,20 +8,20 @@ datasource db {
 }
 
 model orders {
-  id                Int            @id @unique @default(autoincrement())
-  type              String         @db.VarChar(255)
-  address           String         @db.VarChar(255)
-  name              String         @db.VarChar(255)
-  mobile            String         @db.VarChar(255)
-  price             Decimal
-  quantity          Int
-  sum               Int
-  note              String?        @db.VarChar(255)
-  payment_status_id Int
-  payment_status    payment_status @relation(fields: [payment_status_id], references: [id])
+  id              Int          @id @unique @default(autoincrement())
+  type            String       @db.VarChar(255)
+  address         String       @db.VarChar(255)
+  name            String       @db.VarChar(255)
+  mobile          String       @db.VarChar(255)
+  price           Decimal
+  quantity        Int
+  sum             Int
+  note            String?      @db.VarChar(255)
+  order_status_id Int
+  order_status    order_status @relation(fields: [order_status_id], references: [id])
 }
 
-model payment_status {
+model order_status {
   id     Int      @id @unique @default(autoincrement())
   name   String   @db.VarChar(255)
   orders orders[]
