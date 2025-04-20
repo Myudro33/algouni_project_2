@@ -34,7 +34,7 @@ export const getOrderById = async (req, res) => {
 export const createOrder = async (req, res) => {
   try {
     const order = await prisma.orders.create({
-      data: req.body,
+      data: { ...req.body, sum: req.body.price * req.body.quantity },
     });
     res.status(201).json({ message: "Order created", data: order });
   } catch (error) {
@@ -46,7 +46,7 @@ export const updateOrder = async (req, res) => {
   try {
     const order = await prisma.orders.update({
       where: { id: parseInt(id) },
-      data: req.body,
+      data: { ...req.body, sum: req.body.price * req.body.quantity },
     });
     res.status(200).json({ message: "Order updated", data: order });
   } catch (error) {
