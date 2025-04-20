@@ -7,6 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model orders {
+  id                Int            @id @unique @default(autoincrement())
+  type              String         @db.VarChar(255)
+  quantity          Int
+  address           String         @db.VarChar(255)
+  payment_status_id Int
+  payment_status    payment_status @relation(fields: [payment_status_id], references: [id])
+}
+
+model payment_status {
+  id     Int      @id @unique @default(autoincrement())
+  name   String   @db.VarChar(255)
+  orders orders[]
+}
+
 model users {
   id       Int     @id @unique @default(autoincrement())
   name     String? @db.VarChar(255)
