@@ -6,11 +6,18 @@ import {
   deleteUser,
   signIn,
 } from "../controllers/userController.js";
+import { auth, isAdmin } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.route("/").get(getAllUsers).post(createUser);
-router.route("/:id").put(updateUser).delete(deleteUser);
+router
+  .route("/")
+  .get(auth, isAdmin, getAllUsers)
+  .post(auth, isAdmin, createUser);
+router
+  .route("/:id")
+  .put(auth, isAdmin, updateUser)
+  .delete(auth, deleteUser, deleteUser);
 router.route("/signin").post(signIn);
 
 export default router;
