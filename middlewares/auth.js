@@ -23,3 +23,14 @@ export const isAdmin = (req, res, next) => {
   }
   next();
 };
+
+export const isSales = (req, res, next) => {
+  if (req.user.role == "admin") {
+    next();
+    return;
+  }
+  if (req.user.role !== "sales") {
+    return res.status(403).json({ message: "forbidden" });
+  }
+  next();
+};
